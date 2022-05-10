@@ -92,7 +92,8 @@ public class InsetionUI extends javax.swing.JFrame {
                               .addComponent(exexuteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 33,
                                     javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(16, 16, 16)));
-
+      initStyle();
+      this.setVisible(true);
       pack();
 
    }// </editor-fold>
@@ -122,15 +123,15 @@ public class InsetionUI extends javax.swing.JFrame {
    }
 
    private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {
-      App.getMainUI().fillDatabaseTables();
-      System.out.println("updated");
+      
+
       this.dispose();
    }
 
    /**
     * @param args the command line arguments
     */
-   public void run() {
+   public void initStyle() {
 
       /* Set the Nimbus look and feel */
       // <editor-fold defaultstate="collapsed" desc=" Look and feel setting code
@@ -160,11 +161,11 @@ public class InsetionUI extends javax.swing.JFrame {
       // </editor-fold>
 
       /* Create and display the form */
-      java.awt.EventQueue.invokeLater(new Runnable() {
-         public void run() {
-            new InsetionUI(selectedTable).setVisible(true);
-         }
-      });
+      // java.awt.EventQueue.invokeLater(new Runnable() {
+      // public void run() {
+      // new InsetionUI(selectedTable).setVisible(true);
+      // }
+      // });
    }
 
    // Variables declaration - do not modify

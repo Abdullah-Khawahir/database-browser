@@ -206,6 +206,8 @@ public class MainUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(resulatStateLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
                         .addContainerGap()));
+      initStyle();
+      this.setVisible(true);
 
       // this.customCommandTF.setVisible(false);
       // this.executeBtn.setVisible(true);
@@ -318,7 +320,7 @@ public class MainUI extends javax.swing.JFrame {
 
    private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {
 
-      new UpdateUI(this.selectedTableContent, Database.getTables().get(databaseTables.getSelectedRow())).run();
+      new UpdateUI(MainUI.selectedTableContent, Database.getTables().get(databaseTables.getSelectedRow())).run();
    }
 
    private void selectBtnActionPerformed(java.awt.event.ActionEvent evt) {
@@ -327,15 +329,15 @@ public class MainUI extends javax.swing.JFrame {
 
    private void insertBtnActionPerformed(java.awt.event.ActionEvent evt) {
 
-      new InsetionUI(Database.getTables().get(databaseTables.getSelectedRow())).run();
+      new InsetionUI(Database.getTables().get(databaseTables.getSelectedRow()));
 
    }
 
    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {
-      int selectedRow = this.selectedTableContent.getSelectedRow();
+      int selectedRow = MainUI.selectedTableContent.getSelectedRow();
       LinkedList<String> cells = new LinkedList<String>();
-      for (int i = 0; i < this.selectedTableContent.getColumnCount(); i++) {
-         cells.add((String) this.selectedTableContent.getModel().getValueAt(selectedRow, i));
+      for (int i = 0; i < MainUI.selectedTableContent.getColumnCount(); i++) {
+         cells.add((String) MainUI.selectedTableContent.getModel().getValueAt(selectedRow, i));
       }
       String tableName = Database.getTables().get(this.databaseTables.getSelectedRow()).getName();
       String sql = "DELETE FROM " + tableName + " Where ";
@@ -345,18 +347,18 @@ public class MainUI extends javax.swing.JFrame {
          if (Database.getTables().get(this.databaseTables.getSelectedRow()).getDataType().get(i).contains("int")) {// is
                                                                                                                    // int
             if (i == (cells.size() - 1)) {
-               sql += this.selectedTableContent.getModel().getColumnName(i) + " = " + cells.get(i) + " ";
+               sql += MainUI.selectedTableContent.getModel().getColumnName(i) + " = " + cells.get(i) + " ";
             } else {
-               sql += this.selectedTableContent.getModel().getColumnName(i) + " = " + cells.get(i) + " and ";
+               sql += MainUI.selectedTableContent.getModel().getColumnName(i) + " = " + cells.get(i) + " and ";
             }
          }
          if (!Database.getTables().get(this.databaseTables.getSelectedRow()).getDataType().get(i).contains("int")) {// is
                                                                                                                     // not
                                                                                                                     // int
             if (i == (cells.size() - 1)) {
-               sql += this.selectedTableContent.getModel().getColumnName(i) + " =  '" + cells.get(i) + "' ";
+               sql += MainUI.selectedTableContent.getModel().getColumnName(i) + " =  '" + cells.get(i) + "' ";
             } else {
-               sql += this.selectedTableContent.getModel().getColumnName(i) + " = '" + cells.get(i) + "' and ";
+               sql += MainUI.selectedTableContent.getModel().getColumnName(i) + " = '" + cells.get(i) + "' and ";
             }
          }
 
@@ -378,7 +380,7 @@ public class MainUI extends javax.swing.JFrame {
       fillSelectedTableContent(Query.QUERY(this.customCommandTF.getText()));
    }
 
-   public void run() {
+   public void initStyle() {
       /* Set the Nimbus look and feel */
       // <editor-fold defaultstate="collapsed" desc=" Look and feel setting code
       // (optional) ">
@@ -407,11 +409,11 @@ public class MainUI extends javax.swing.JFrame {
       // </editor-fold>
 
       /* Create and display the form */
-      java.awt.EventQueue.invokeLater(new Runnable() {
-         public void run() {
-            new MainUI().setVisible(true);
-         }
-      });
+      // java.awt.EventQueue.invokeLater(new Runnable() {
+      // public void run() {
+      // new MainUI().setVisible(true);
+      // }
+      // });
    }
 
    public javax.swing.JLabel getResponseLabel() {

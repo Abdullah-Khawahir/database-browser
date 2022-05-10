@@ -8,7 +8,9 @@ import java.beans.PropertyVetoException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import databaseIO.DatabaseAccess;
 import databaseIO.Query;
+import luncher.App;
 
 /**
  *
@@ -181,7 +183,19 @@ public class login extends javax.swing.JFrame {
                               .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 33,
                                     javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(54, Short.MAX_VALUE)));
-                        this.setVisible(true);
+      initStyle();
+      // this.usernameLabel.setVisible(false);
+      // this.usernameTextField.setVisible(false);
+      // this.passwordLabel.setVisible(false);
+      // this.passwordTextField.setVisible(false);
+
+      this.URLTextField.setText("jdbc:mysql://localhost/un");
+      this.usernameTextField.setText("root");
+      this.passwordTextField.setText("4484");
+      this.createAccountbtn.setVisible(false);
+
+      this.setVisible(true);
+
       pack();
    }// </editor-fold>
 
@@ -194,7 +208,17 @@ public class login extends javax.swing.JFrame {
    }
 
    private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {
-    
+      luncher.App.setURL(this.URLTextField.getText());
+      luncher.App.setUSER(this.usernameTextField.getText());
+      luncher.App.setPASS(this.passwordTextField.getText());
+
+      try {
+         App.access = new DatabaseAccess(App.getURL(), App.getUSER(), App.getPASS());
+      } catch (SQLException e) {
+         Query.SQLExceptionProc(e);
+      }
+      new MainUI();
+      this.dispose();
    }
 
    private void createAccountbtnActionPerformed(java.awt.event.ActionEvent evt) {
@@ -205,19 +229,8 @@ public class login extends javax.swing.JFrame {
       System.exit(ABORT);
    }
 
-   /**
-    * @param args the command line arguments
-    */
-   private static void run() {
-      /* Set the Nimbus look and feel */
-      // <editor-fold defaultstate="collapsed" desc=" Look and feel setting code
-      // (optional) ">
-      /*
-       * If Nimbus (introduced in Java SE 6) is not available, stay with the default
-       * look and feel.
-       * For details see
-       * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-       */
+   private void initStyle() {
+
       try {
          for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
             if ("Nimbus".equals(info.getName())) {
@@ -234,14 +247,6 @@ public class login extends javax.swing.JFrame {
       } catch (javax.swing.UnsupportedLookAndFeelException ex) {
          java.util.logging.Logger.getLogger(login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
       }
-      // </editor-fold>
-
-      /* Create and display the form */
-      // java.awt.EventQueue.invokeLater(new Runnable() {
-      //    public void run() {
-      //       new login().setVisible(true);
-      //    }
-      // });
    }
 
    // Variables declaration - do not modify
